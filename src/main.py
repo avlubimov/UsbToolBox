@@ -34,15 +34,20 @@ class Device:
         return value
 
     @property
+    def speed(self):
+        return self.device.speed
+
+    @property
     def info(self):
         retval = {}
-        for key in "idVendor", "idProduct", "bDeviceClass", "iProduct":
+        for key in "idVendor", "idProduct", "bDeviceClass", "iProduct", "speed", "bus", "address", "port":
             try:
                 retval[key] = getattr(self.device, key)
             except Exception as e:
                 print(e)
         retval["Product"] = self.Product
         return retval
+
 
 
 for dev in devices:
@@ -52,3 +57,4 @@ for dev in devices:
 
     # print(f"{dev.bDeviceClass} {dev_class}: {dev.idVendor:04X}:{dev.idProduct:04X} - {dev.bcdUSB}")
     print(device.info)
+    print(f"speed: {device.speed}")
